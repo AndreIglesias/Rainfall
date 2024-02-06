@@ -1,25 +1,37 @@
 # Level 0
 
-![level0 protections](../docs/protections.png)
+## Setup
+We find a binary file at the root of the user **`level0`** named *`./level0`*.
 
-1. **GCC stack protector support**: This indicates whether the GCC (GNU Compiler Collection) has support for stack protection enabled. Stack protection helps prevent certain types of buffer overflow attacks by adding safeguards to the stack.
+To analyze the binary file we copy it to our own environment with `scp` *(OpenSSH secure file copy)*.
+```bash
+scp -r -P 4243 level0@localhost:/home/user/level0/level0 .
+```
+> [!NOTE]  
+> When forwarding the ssh port *(4242)* from the Rainfall VM. 4242 Is occupied on the Host machine at 42, so we have to choose another port *(4243 for example)*.
+> ![NATPort](../docs/NATPort.png)
 
-2. **Strict user copy checks**: This indicates whether strict checks are in place for copying data from user space to kernel space. Enabling strict checks can help prevent certain types of security vulnerabilities related to improper handling of user input.
+To see what kind of file we have in possesion, we can run:
+```bash
+$ file ./level0
+level0: ELF 32-bit LSB executable, Intel 80386, version 1 (GNU/Linux), statically linked, for GNU/Linux 2.6.24, BuildID[sha1]=2440cf857c9ce7dbe7304fcf56a301c612f404ce, stripped
+```
+We can see that *`./level0`* is a statically linked ELF executable file, so we can try to reverse engineer it with radare2 *(r2)* or with another tool for this purpose.
 
-3. **Restrict /dev/mem access** and **Restrict /dev/kmem access**: These settings indicate whether access to system memory devices (`/dev/mem` and `/dev/kmem`) is restricted. Limiting access to these devices can help mitigate certain types of attacks that target system memory.
+I am running `r2` inside docker.
+```bash
+docker run -it -v "$bin_file_path":/mnt/binary radare/radare2 bash -c "r2 /mnt/binary"
+```
 
-4. **grsecurity / PaX**: These are additional security enhancements often found in certain Linux distributions. The output indicates that these specific features (GRKERNSEC and KERNHEAP) are not enabled.
+## Binary Analysis
 
-5. **Kernel Heap Hardening**: Similar to stack protection, this would indicate whether hardening measures are in place for the kernel heap to prevent certain types of heap-based attacks.
-
-6. **System-wide ASLR (Address Space Layout Randomization)**: ASLR is a security feature that randomizes the memory addresses used by system components, making it harder for attackers to predict the location of specific code or data. Here, it indicates that ASLR is currently turned off (`Off`, with a setting of `0`).
-
-7. **RELRO, STACK CANARY, NX, PIE, RPATH, RUNPATH**: These are various security features and settings related to binary executables and shared libraries:
-
-   - **RELRO (Relocation Read-Only)**: Determines whether the relocation table of an executable is read-only, which can help prevent certain types of attacks.
-   - **STACK CANARY**: A stack canary is a value placed on the stack before the return address of a function. It helps detect stack buffer overflows by checking if this value has been altered.
-   - **NX (No-Execute)**: This setting indicates whether the stack and heap are marked as non-executable, which helps prevent certain types of attacks that rely on executing code injected into memory.
-   - **PIE (Position Independent Executable)**: Determines whether executables are compiled as position-independent, which makes it harder for attackers to exploit memory corruption vulnerabilities.
-   - **RPATH and RUNPATH**: These settings determine whether an executable has specific paths for locating shared libraries (`RPATH` at build time, and `RUNPATH` at runtime).
-
-8. **FILE**: This indicates the file path of the executable `/home/user/level0/level0`.
+On the `r2` prompt we need to run a couple of commands to analyze the `main` function.
+```bash
+[0x08048de8]> aaa #Automatically analyze the binary
+...
+[0x08048de8]> s main #Seek to the main function
+[0x08048ec0]> V #Enter visual mode
+[0x08048ec0]> V
+```
+![r2](../docs/level0r2.png)
+![r2](../docs/smain.png)
