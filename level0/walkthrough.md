@@ -9,6 +9,7 @@ scp -r -P 4243 level0@localhost:/home/user/level0/level0 .
 ```
 > [!NOTE]  
 > When forwarding the ssh port *(4242)* from the Rainfall VM. 4242 Is occupied on the Host machine at 42, so we have to choose another port *(4243 for example)*.
+> 
 > <img src = "../docs/NATPort.png" width = "70%">
 
 To see what kind of file we have in possesion, we can run:
