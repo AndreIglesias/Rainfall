@@ -1,5 +1,7 @@
 # Level 0
 
+![level0 protections](../docs/protections.png)
+
 1. **GCC stack protector support**: This indicates whether the GCC (GNU Compiler Collection) has support for stack protection enabled. Stack protection helps prevent certain types of buffer overflow attacks by adding safeguards to the stack.
 
 2. **Strict user copy checks**: This indicates whether strict checks are in place for copying data from user space to kernel space. Enabling strict checks can help prevent certain types of security vulnerabilities related to improper handling of user input.
