@@ -40,15 +40,16 @@ On the `r2` prompt we need to run a couple of commands to analyze the `main` fun
   <img src = "../docs/level0r2.png" width = "100%"> 
 </p>
 
-## Reverse Engineer
 ### Permissions
 ```bash
-level0@RainFall:~$ ls -l
-total 732
+level0@RainFall:~$ ls -l level0 
 -rwsr-x---+ 1 level1 users 747441 Mar  6  2016 level0
 
 ```
 The permissions `-rwsr-x---+` indicate that the binary `./level0` has the setuid `(s)` permission set for the user *(owner)*. This means that when the `./level0` binary is executed *(by any user)*, it runs with the privileges of the user **level1**, the owner of the file.
+
+
+## Reverse Engineer
 
 ### Code
 
