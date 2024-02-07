@@ -6,7 +6,7 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:51:32 by ciglesia          #+#    #+#             */
-/*   Updated: 2024/02/07 10:41:25 by ciglesia         ###   ########.fr       */
+/*   Updated: 2024/02/08 00:34:34 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void run() {
 
 int main(int argc, const char **argv, const char **envp)
 {
-    char buffer[64]; // Buffer to hold user input
+    char buffer[76]; // Buffer to hold user input
     
     gets(buffer); // Reading input from the user
 

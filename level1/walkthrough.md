@@ -104,7 +104,7 @@ void run() {
 
 int main(int argc, const char **argv, const char **envp)
 {
-    char buffer[64]; // Buffer to hold user input
+    char buffer[??]; // Buffer to hold user input
     
     gets(buffer); // Reading input from the user
 
