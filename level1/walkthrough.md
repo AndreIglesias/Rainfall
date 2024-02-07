@@ -5,7 +5,7 @@ We find a binary file at the root of the user **`level1`** named *`./level1`*.
 
 To analyze the binary file we copy it to our own environment with `scp` *(OpenSSH secure file copy)*.
 ```bash
-scp -r -P 4243 level0@localhost:/home/user/level0/level0 .
+scp -r -P 4243 level0@localhost:/home/user/level1/level1 .
 ```
 
 ### Radare2
