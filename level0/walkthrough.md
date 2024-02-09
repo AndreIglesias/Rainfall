@@ -51,24 +51,11 @@ The permissions `-rwsr-x---+` indicate that the binary `./level0` has the setuid
 
 ## Reverse Engineer
 
-### Code
+### Source
 
 <p align="center">
   <img src = "../docs/IDA.png" width = "100%"> 
 </p>
-
-We can see in the code that the program is calling `atoi(argv[1])` on the first argument sent to `./level0 <arg>` and comparing it to the number *423*.
-Then if the argument is the same number, the program sets the *EGID* and *EUID* in order to execute `execv("/bin/sh")` with the privileges of the file owner instead of the privileges of the user who executed it. 
-This opens a shell as the user **level1** and allow us to `cat` the content of the `.pass` file.
-
-## Solution
-
-```bash
-$ cat /home/user/level1/.pass
-1fe8a524fa4bec01ca4ea2a869af2a02260d4a7d5fe7e7c24d8617e6dca12d3a
-```
-
-## Source
 
 The equivalent program in C would be:
 ```C
@@ -94,4 +81,15 @@ int main(int argc, const char **argv, const char **envp)
     }
     return (0);
 }
+```
+
+We can see in the code that the program is calling `atoi(argv[1])` on the first argument sent to `./level0 <arg>` and comparing it to the number *423*.
+Then if the argument is the same number, the program sets the *EGID* and *EUID* in order to execute `execv("/bin/sh")` with the privileges of the file owner instead of the privileges of the user who executed it. 
+This opens a shell as the user **level1** and allow us to `cat` the content of the `.pass` file.
+
+## Solution
+
+```bash
+$ cat /home/user/level1/.pass
+1fe8a524fa4bec01ca4ea2a869af2a02260d4a7d5fe7e7c24d8617e6dca12d3a
 ```
