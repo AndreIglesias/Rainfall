@@ -111,7 +111,7 @@ The equivalent program in C would be:
 #include <string.h>
 
 
-// ebp + 4 = return address , next instruction to execute
+// ebp + 4 = return address , EIP next instruction to execute
 int p()
 {
   char buffer[64]; // ebp+0x4C - ebp+0xC
@@ -121,7 +121,7 @@ int p()
 
   fflush(stdout);   // Flush stdout buffer
   gets(buffer);     // Again, possible buffer overflow
-  memcpy(eax, &buffer[80], 4);  // Copy 4 bytes from buffer[80] (ebp + 4) to eax
+  memcpy(eax, &buffer[80], 4);  // Copy EIP (return address) from buffer[80] to eax
   arg = &buffer[64];  // Set arg to point to the end of buffer
   memcpy(arg, eax, 4);  // Copy 4 bytes from eax to arg
   memcpy(eax, arg, 4);  // Copy 4 bytes from arg to eax
@@ -255,6 +255,7 @@ char code[] = "\x31\xc9\xf7\xe1\x51\x68\x2f\x2f"
 ```
 
 With this we can prepare our payload. To be able to execute the payload we have to write the instructions (*shellcode*) on the **heap** and tell the program to execute that.
+
 We can achieve this by replacing the main's `return` address by the memory location where `strdup` writes, that way the input from the `gets` function is allocated on the **heap** thanks to `strdup` and we can execute it by telling the program that the next instruction on the EIP (instead of the `return`) is on the address `0x0804a008`.
 
 We will have this format: *shellcode* + padding + *heap address*.
