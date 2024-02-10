@@ -5,7 +5,7 @@ We find a binary file at the root of the user **`level1`** named *`./level1`*.
 
 To analyze the binary file we copy it to our own environment with `scp` *(OpenSSH secure file copy)*.
 ```bash
-scp -r -P 4243 level0@localhost:/home/user/level1/level1 .
+scp -r -P 4243 level1@localhost:/home/user/level1/level1 .
 ```
 
 ### Radare2
@@ -19,10 +19,10 @@ docker run -it -v "$bin_file_path":/mnt/binary radare/radare2 bash -c "r2 /mnt/b
 
 On the `r2` prompt we need to run a couple of commands to analyze the `main` function.
 ```bash
-[0x08048de8]> aaa #Automatically analyze the binary
+[0x08048de8]> aaa # Automatically analyze the binary
 ...
-[0x08048ec0]> V #Enter visual mode
-[0x08048ec0]> p #Navigate to the Control Flow Graph (CFG) view
+[0x08048ec0]> V # Enter visual mode
+[0x08048ec0]> p # Navigate to the Control Flow Graph (CFG) view
 ```
 
 <p align="center">

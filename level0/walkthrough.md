@@ -30,11 +30,11 @@ docker run -it -v "$bin_file_path":/mnt/binary radare/radare2 bash -c "r2 /mnt/b
 
 On the `r2` prompt we need to run a couple of commands to analyze the `main` function.
 ```bash
-[0x08048de8]> aaa #Automatically analyze the binary
+[0x08048de8]> aaa # Automatically analyze the binary
 ...
-[0x08048de8]> s main #Seek to the main function
-[0x08048ec0]> V #Enter visual mode
-[0x08048ec0]> V
+[0x08048de8]> s main # Seek to the main function
+[0x08048ec0]> V # Enter visual mode
+[0x08048ec0]> V # Change visual
 ```
 <p align="center">
   <img src = "../docs/level0r2.png" width = "100%"> 
