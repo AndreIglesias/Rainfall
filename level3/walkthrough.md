@@ -21,7 +21,7 @@ On the `r2` prompt we need to run a couple of commands to analyze the `main` fun
 ```bash
 [0x08048de8]> aaa # Automatically analyze the binary
 ...
-[0x08048ec0]> V # Enter visual mode
+[0x08048ec0]> v # Enter visual mode
 ```
 
 <p align="center">
@@ -127,7 +127,7 @@ int main() {
 }
 ```
 
-We can see that this time we have, an `fgets()` function instead of a `gets()` function, which is protected against *buffer overflow*. And also a global variable `m`, which is what determines if we can access the `system("/bin/sh")`.
+We can see that this time we have, an `fgets()` function instead of a `gets()` function, which is protected against *buffer overflow*, but the `printf()` is vulnerable against `format string` exploits. And also a global variable `m`, which is what determines if we can access the `system("/bin/sh")`.
 
 
 ### Permissions
@@ -155,7 +155,7 @@ Continuing.
 
 AAAA 200 b7fd1ac0 b7ff37d0 41414141 20782520 25207825 78252078 20782520
 ```
-As we see here, the *input string* (or the *buffer*) is stored on the `EAX` register and when `printf` executes the *format specifiers* `%x`, retreiving values from the stack (as it doesn't has any parameter to retreive from), we can identify our *input string* `41414141 20782520 25207825 78252078 20782520` on the **4th** *format specifier* / *argument*.
+As we see here, the *input string* (or the *buffer*) is stored on the `EAX` register and when `printf` executes the *format specifiers* `%x`, retreiving values from the stack (as it doesn't have any parameter to retreive from), we can identify our *input string* `41414141 20782520 25207825 78252078 20782520` on the **4th** *format specifier* / *argument*.
 
 There is one *format specifier* in `printf` that allow us to store the **number of characters** written so far, into the integer pointed to by the corresponding argument: `%n`. We can specify in which argument we want this **number of characters** to be stored in, by specifying it like this: `%<argumentNumber>$n`.
 

