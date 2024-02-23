@@ -6,7 +6,7 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:51:32 by ciglesia          #+#    #+#             */
-/*   Updated: 2024/02/23 09:53:40 by ciglesia         ###   ########.fr       */
+/*   Updated: 2024/02/23 14:07:22 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int n()
   fgets(v1, 512, stdin);
   p(v1);
   eax = m;
-  if ( m == 16930116 )
+  if ( m == 16930116 ) // cmp with 0x1025544
     return system("/bin/cat /home/user/level5/.pass");
   return eax;
 }
