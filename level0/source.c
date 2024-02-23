@@ -6,7 +6,7 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:51:32 by ciglesia          #+#    #+#             */
-/*   Updated: 2024/02/23 17:00:22 by Clkuznie         ###   ########.fr       */
+/*   Updated: 2024/02/23 18:31:29 by Clkuznie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 
 int main(int argc, const char **argv, const char **envp)
 {
+    // If first argument is '423'
+    // Undefined behaviour is expected if no argument is given
     if (atoi(argv[1]) != 423)
     {
         // Write "No !" to stderr
