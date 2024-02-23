@@ -145,7 +145,7 @@ int main() {
 }
 ```
 
-We can see that this time we have, an `fgets()` function instead of a `gets()` function, which is protected against *buffer overflow*. And also a global variable `m`, which is what determines if we can access the `system("/bin/sh")`.
+We can see that this time we have, an `fgets()` function instead of a `gets()` function, which is protected against *buffer overflow*. And also a global variable `m`, which is what determines if we can access the `system("/bin/cat /home/user/level5/.pass")`.
 
 
 ### Permissions
