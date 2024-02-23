@@ -6,7 +6,7 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:51:32 by ciglesia          #+#    #+#             */
-/*   Updated: 2024/02/06 19:50:32 by ciglesia         ###   ########.fr       */
+/*   Updated: 2024/02/23 17:00:22 by Clkuznie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 int main(int argc, const char **argv, const char **envp)
 {
-    if (argc < 423)
+    if (atoi(argv[1]) != 423)
     {
         // Write "No !" to stderr
         fwrite("No !\n", sizeof(char), 5, stderr);
