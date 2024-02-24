@@ -83,7 +83,7 @@ On the `r2` prompt we need to run a couple of commands to analyze the `main` fun
 0x08048496 main            endp
 ```
 
-We can see 2 interesting things, in one hand, the program seems to be using the `gets()` function, whis is known to be prone to buffer overflow. And on the other, a function called `run()` Which is executing the `"/bin/sh"` shell command.
+We can see 2 interesting things, in one hand, the program seems to be using the `gets()` function, which is known to be prone to buffer overflow. And on the other, a function called `run()` Which is executing the `"/bin/sh"` shell command.
 
 ### Source
 
