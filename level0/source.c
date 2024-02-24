@@ -17,8 +17,8 @@
 
 int main(int argc, const char **argv, const char **envp)
 {
-    // If first argument is '423'
-    // Undefined behaviour is expected if no argument is given
+    // Undefined behaviour is observed when no argument is given
+    // If first argument is different from "423"
     if (atoi(argv[1]) != 423)
     {
         // Write "No !" to stderr
