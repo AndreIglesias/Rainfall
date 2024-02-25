@@ -66,7 +66,7 @@ The equivalent program in C would be:
 
 int main(int argc, const char **argv, const char **envp)
 {
-    if (argc < 423)
+    if (atoi(argv[1]) != 423)
     {
         // Write "No !" to stderr
         fwrite("No !\n", sizeof(char), 5, stderr);
