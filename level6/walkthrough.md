@@ -143,7 +143,7 @@ int main(int argc, const char **argv, const char **envp)
 As we can see, the program *segfaults* when not given an argument (`argv[1]`), and print *"Nope"* to an arbitrary argument.
 
 ### Permissions
-As we can see in the permissions of the executable file, the binary `./level6` is executed with the privileges of the user **level6**, the owner of the file.
+As we can see in the permissions of the executable file, the binary `./level6` is executed with the privileges of the user **level7**, the owner of the file.
 ```bash
 level6@RainFall:~$ ls -l level6 
 -rwsr-s---+ 1 level7 users 5274 Mar  6  2016 level6

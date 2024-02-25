@@ -249,7 +249,7 @@ This program waits for an input with `fgets` (which allows a buffer of *128*) an
 The `strcpy` is protected with a `(strlen(input + 5) <= 30 )` so we can't fill the `auth` variable with more than 30 bytes (which we need 32 to execute `system("/bin/sh")`) at initialization.
 
 ### Permissions
-As we can see in the permissions of the executable file, the binary `./level8` is executed with the privileges of the user **level8**, the owner of the file.
+As we can see in the permissions of the executable file, the binary `./level8` is executed with the privileges of the user **level9**, the owner of the file.
 ```bash
 level8@RainFall:~$ ls -l level8 
 -rwsr-s---+ 1 level9 users 6057 Mar  6  2016 level8
