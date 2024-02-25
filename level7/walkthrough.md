@@ -184,7 +184,7 @@ The 2 arguments, `argv[1]` and `argv[2]`, are copied in `v6` and `v5` respective
 Then the function `fgets` saves the **flag** in the global variable `c`.
 
 ### Permissions
-As we can see in the permissions of the executable file, the binary `./level7` is executed with the privileges of the user **level7**, the owner of the file.
+As we can see in the permissions of the executable file, the binary `./level7` is executed with the privileges of the user **level8**, the owner of the file.
 ```bash
 level7@RainFall:~$ ls -l level7 
 -rwsr-s---+ 1 level8 users 5648 Mar  9  2016 level7
