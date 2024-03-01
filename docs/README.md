@@ -40,7 +40,7 @@ int main(int argc, const char **argv, const char **envp)
 <br/>&emsp;
 <b>Objective:</b> Buffer overflow on <b><i>gets</i></b> function, to overwritte the <b>EIP</b> reg to point to the <b><i>run</i></b> function.
 <br/>&emsp;
-<a href="../level1/walkthrough.md">Walkthrough.md</a>
+<a href="../level1/walkthrough.md">Walkthrough.md</a> <a href="../level1/walkthrough_pwntools.md">Walkthrough_pwntools.md</a>
 
 ```C
 void run() {
