@@ -12,6 +12,8 @@
 <summary><b>Level 0</b></summary
 <br/>&emsp;
 <b>Objective:</b> Binary analysis to find out which number we have to input (<b>423</b>).
+<br/>&emsp;
+<a href="../level0/walkthrough.md">Walkthrough.md</a>
 
 ```C
 int main(int argc, const char **argv, const char **envp)
@@ -37,6 +39,8 @@ int main(int argc, const char **argv, const char **envp)
 <summary><b>Level 1</b></summary
 <br/>&emsp;
 <b>Objective:</b> Buffer overflow on <b><i>gets</i></b> function, to overwritte the <b>EIP</b> reg to point to the <b><i>run</i></b> function.
+<br/>&emsp;
+<a href="../level1/walkthrough.md">Walkthrough.md</a>
 
 ```C
 void run() {
@@ -62,6 +66,8 @@ int main(int argc, const char **argv, const char **envp)
 <summary><b>Level 2</b></summary
 <br/>&emsp;
 <b>Objective:</b> Buffer overflow on <b><i>gets</i></b> function, to inject <i>shellcode</i> into the <i>Heap</i>, and execute it overwriting the <b>EIP</b> reg to point to the code on the <i>Heap</i>.
+<br/>&emsp;
+<a href="../level2/walkthrough.md">Walkthrough.md</a>
 
 ```C
 int p()
@@ -95,6 +101,8 @@ int main(int argc, const char **argv, const char **envp)
 <summary><b>Level 3</b></summary
 <br/>&emsp;
 <b>Objective:</b> Format string attack on <b><i>printf</i></b> function, to inject the number <i>64</i> into the global variable <b><i>m</i></b>.
+<br/>&emsp;
+<a href="../level3/walkthrough.md">Walkthrough.md</a>
 
 ```C
 int m = 0;
@@ -120,6 +128,8 @@ int main() {
 <summary><b>Level 4</b></summary
 <br/>&emsp;
 <b>Objective:</b> Format string attack on <b><i>printf</i></b> function, to inject the number <i>16930116</i> into the global variable <b><i>m</i></b>.
+<br/>&emsp;
+<a href="../level4/walkthrough.md">Walkthrough.md</a>
 
 ```C
 int m = 0;
@@ -151,6 +161,8 @@ int main() {
 <summary><b>Level 5</b></summary
 <br/>&emsp;
 <b>Objective:</b> Format string attack on <b><i>printf</i></b> function, to hijack the <b>Global Offset Table</b> replacing there the <b><i>exit</i></b> address for the <b><i>o()</i></b> function address to redirect the code execution.
+<br/>&emsp;
+<a href="../level5/walkthrough.md">Walkthrough.md</a>
 
 ```C
 int n()
@@ -175,6 +187,8 @@ int main() {
 <summary><b>Level 6</b></summary
 <br/>&emsp;
 <b>Objective:</b> Buffer overflow on <b><i>strcpy</i></b> function, to overwrite the <b>EIP</b> (which was going to execute <b><i>m()</i></b>) to make it execute <b><i>n()</i></b> instead.
+<br/>&emsp;
+<a href="../level6/walkthrough.md">Walkthrough.md</a>
 
 ```C
 int n()
@@ -202,6 +216,8 @@ int main(int argc, const char **argv, const char **envp)
 <summary><b>Level 7</b></summary
 <br/>&emsp;
 <b>Objective:</b> Buffer overflow on the 2 <b><i>strcpy</i></b> functions, to hijack the <b>Global Offset Table</b> replacing there the <b><i>puts</i></b> address for the <b><i>m()</i></b> function address to redirect the code execution and print the <b><i>.pass</i></b> content.
+<br/>&emsp;
+<a href="../level7/walkthrough.md">Walkthrough.md</a>
 
 ```C
 char *c = NULL;
@@ -239,6 +255,8 @@ int main(int argc, const char **argv, const char **envp)
 <summary><b>Level 8</b></summary
 <br/>&emsp;
 <b>Objective:</b> play with the options of the program to write at the <i>32th</i> byte of the <b><i>auth</i></b> global variable.
+<br/>&emsp;
+<a href="../level8/walkthrough.md">Walkthrough.md</a>
 
 ```C
 char *auth = NULL;
