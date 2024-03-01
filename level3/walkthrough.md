@@ -12,7 +12,7 @@ scp -r -P 4243 level3@localhost:/home/user/level3/level3 .
 
 I am running `r2` inside docker.
 ```bash
-docker run -it -v "$bin_file_path":/mnt/binary radare/radare2 bash -c "r2 /mnt/binary"
+docker run -it -v "$bin_file_path":/mnt/binary radare/radare2 bash -c "sudo /snap/radare2/current/bin/r2 /mnt/binary"
 ```
 
 ## Binary Analysis
