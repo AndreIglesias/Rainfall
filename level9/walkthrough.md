@@ -465,9 +465,9 @@ int main(int argc, char* argv[]) {
     N* instance1 = new N(5);
     N* instance2 = new N(6);
 
-    obj1->setAnnotation(argv[1]);
+    instance1->setAnnotation(argv[1]);
 
-    return (instance2 + instance1);
+    return (*instance2 + *instance1);
 }
 ```
 
