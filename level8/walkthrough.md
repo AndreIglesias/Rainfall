@@ -12,14 +12,14 @@ scp -r -P 4243 level8@localhost:/home/user/level8/level8 .
 
 I am running `r2` inside docker.
 ```bash
-docker run -it -v "$bin_file_path":/mnt/binary radare/radare2 bash -c "r2 /mnt/binary"
+docker run -it -v "$bin_file_path":/mnt/binary radare/radare2 bash -c "sudo /snap/radare2/current/bin/r2 /mnt/binary"
 ```
 
 ## Binary Analysis
 
 On the `r2` prompt we need to run a couple of commands to analyze the `main` function.
 ```bash
-[0x08048de8]> aaa # Automatically analyze the binary
+[0x08048de8]> aaa # Analyze the binary
 ...
 [0x08048ec0]> v # Enter visual mode
 ```
@@ -287,6 +287,9 @@ In our example we have:
 This is convenient for us, we can modify the `service` variable as a continuation to the `auth ` variable until the *32th* byte.
 
 ### Solution
+
+Connect with `ssh -p 4243 level8@localhost`
+Enter the password `5684af5cb4c8679958be4abe6373147ab52d95768e047820bf382e44fa8d8fb9`
 
 We can finally construct our payload like this:
 

