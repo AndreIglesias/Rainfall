@@ -294,3 +294,47 @@ int main(int argc, const char **argv, const char **envp)
 }
 ```
 </details>
+<details>
+<summary><b>Level 9</b></summary
+<br/>&emsp;
+<b>Objective:</b> Buffer overflow on c++ object with <i><b>memcpy</b></i> to overwrite the vtable of a second object on the <b>heap</b>.
+<br/>&emsp;
+<a href="../level9/walkthrough.md">Walkthrough.md</a>
+
+```C
+class N {
+public:
+    char buffer[100];
+    int value;
+
+    N(int value) : value(value) {}
+
+    void setAnnotation(char* annotation) {
+        int len = strlen(annotation);
+
+        std::memcpy(this->buffer, annotation, len);
+    }
+
+    int operator+(const N &right) const {
+        return (this->value + right.value);
+    }
+
+    int operator-(const N &right) const {
+        return (this->value - right.value);
+    }
+};
+
+int main(int argc, char* argv[]) {
+    if (argc < 2) {
+        exit(1);
+    }
+
+    N* instance1 = new N(5);
+    N* instance2 = new N(6);
+
+    instance1->setAnnotation(argv[1]);
+
+    return (*instance2 + *instance1);
+}
+```
+</details>
