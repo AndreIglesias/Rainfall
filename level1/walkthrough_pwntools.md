@@ -156,7 +156,7 @@ What we can do is:
 - put it in the buffer
 - look at the address called at program failure (it will be a sequence of 4 characters of the string)
 - look at where in our string the subsequence appears
-- count the number of characters before it `pattern offset`
+- count the number of characters before: `pattern offset`
 
 ![peda pattern create](../docs/level1.peda.pattern.png)
 

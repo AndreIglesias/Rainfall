@@ -1,11 +1,11 @@
 # Level 4
 
 ## Setup
-We find a binary file at the root of the user **`level5`** named *`./level5`*.
+We find a binary file at the root of the user **`level4`** named *`./level4`*.
 
 To analyze the binary file we copy it to our own environment with `scp` *(OpenSSH secure file copy)*.
 ```bash
-scp -r -P 4243 level5@localhost:/home/user/level5/level5 .
+scp -r -P 4243 level4@localhost:/home/user/level4/level4 .
 ```
 
 ### Radare2
@@ -19,7 +19,7 @@ docker run -it -v "$bin_file_path":/mnt/binary radare/radare2 bash -c "r2 /mnt/b
 
 On the `r2` prompt we need to run a couple of commands to analyze the `main` function.
 ```bash
-[0x08048de8]> aaa # Automatically analyze the binary
+[0x08048de8]> aaa # Analyze the binary
 ...
 [0x08048ec0]> v # Enter visual mode
 ```
@@ -216,6 +216,9 @@ We need the *global variable* `m` (in the address `0x08049810`) to be equal to *
 ```
 
 ### Solution
+
+Connect with `ssh -p 4243 level4@localhost`
+Enter the password `b209ea91ad69ef36f2cf0fcbbc24c739fd10464cf545b20bea8572ebdc3c36fa`
 
 We can execute the `printf` buffer to store the number *16930116* on the address `0x08049810` where the `m` variable is with this line. Of course, because we are running a shell through a pipe, we can keep the `stdin` open like the same trick from the last level:
 ```bash

@@ -19,7 +19,7 @@ docker run -it -v "$bin_file_path":/mnt/binary radare/radare2 bash -c "r2 /mnt/b
 
 On the `r2` prompt we need to run a couple of commands to analyze the `main` function.
 ```bash
-[0x08048de8]> aaa # Automatically analyze the binary
+[0x08048de8]> aaa # Analyze the binary
 ...
 [0x08048ec0]> V # Enter visual mode
 ```
@@ -266,6 +266,9 @@ This will be the payload for our binary.
 ```
 
 ### Solution
+
+Connect with `ssh -p 4243 level2@localhost`
+Enter the password `53a4a712787f40ec66c3c26c1f4b164dcad5552b038bb0addd69bf5bf6fa8e77`
 
 We can execute the buffer overflow with this line. Of course, because we are running a shell through a pipe, we can keep the `stdin` open like the same trick from the last level:
 ```bash

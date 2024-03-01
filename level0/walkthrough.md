@@ -30,7 +30,7 @@ docker run -it -v "$bin_file_path":/mnt/binary radare/radare2 bash -c "r2 /mnt/b
 
 On the `r2` prompt we need to run a couple of commands to analyze the `main` function.
 ```bash
-[0x08048de8]> aaa # Automatically analyze the binary
+[0x08048de8]> aaa # Analyze the binary
 ...
 [0x08048de8]> s main # Seek to the main function
 [0x08048ec0]> V # Enter visual mode
@@ -89,7 +89,11 @@ This opens a shell as the user **level1** and allow us to `cat` the content of t
 
 ## Solution
 
+Connect with `ssh -p 4243 level0@localhost`
+Enter the password `level0`
+
 ```bash
+./level0 423
 $ cat /home/user/level1/.pass
 1fe8a524fa4bec01ca4ea2a869af2a02260d4a7d5fe7e7c24d8617e6dca12d3a
 ```
