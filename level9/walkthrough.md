@@ -99,7 +99,12 @@ But In order to understand this main, we'll split it in three parts matching the
 
 Here is the first section of the `main`.
 
-<pre>
+<p align="center">
+  <img src = "../docs/level9.main.section_1.png" width = "100%">
+</p>
+
+<!-- uncommend the following lines for markdown version of the screenshot content -->
+<!-- <pre>
 Dump of assembler code for function main:
    0x080485f4 <+0>:	push   ebp
    0x080485f5 <+1>:	mov    ebp,esp
@@ -147,7 +152,7 @@ Dump of assembler code for function main:
    0x08048698 <+164>:	leave
    0x08048699 <+165>:	ret
 End of assembler dump.</span>
-</pre>
+</pre> -->
 
 It contains:
 
@@ -160,17 +165,21 @@ It contains:
    0x080485f8 <+4>:	and    esp,0xfffffff0
    0x080485fb <+7>:	sub    esp,0x20
 </pre>
-We get 0x20, or 32 bytes of stack for the main.
 </details>
 
 <details>
 <summary>A check for at least one argument.</summary>
-<pre>
+<p align="center">
+  <img src = "../docs/level9.main.argc_jump.png" width = "100%">
+</p>
+
+<!-- uncommend the following lines for markdown version of the screenshot content -->
+<!-- <pre>
    0x080485fe <+10>:	<span style="color:#FF0000">cmp    DWORD PTR [ebp+0x8],0x1</span>
    0x08048602 <+14>:	<span style="color:#FFFF00">jg     0x8048610 <main+28></span>
    0x08048604 <+16>:	mov    DWORD PTR [esp],0x1
    0x0804860b <+23>:	<span style="color:#00FF00">call   0x80484f0 <_exit@plt></span>
-</pre>
+</pre> -->
 Here, [ebp+0x8] contains argc.
 The code will skip the exit with the `jg` if argc > 1
 </details>
@@ -184,24 +193,34 @@ The code will skip the exit with the `jg` if argc > 1
 </tr>
 <tr>
 <td>
-<pre>
+<p align="center">
+  <img src = "../docs/level9.instance1.png" width = "100%">
+</p>
+
+<!-- uncommend the following lines for markdown version of the screenshot content -->
+<!-- <pre>
    0x08048610 <+28>:	mov    DWORD PTR [esp],0x6c
    0x08048617 <+35>:	<span style="color:#00FF00">call   0x8048530 <_Znwj@plt></span>
    0x0804861c <+40>:	mov    ebx,eax
    0x0804861e <+42>:	mov    DWORD PTR [esp+0x4],0x5
    0x08048626 <+50>:	mov    DWORD PTR [esp],ebx
    0x08048629 <+53>:	<span style="color:#00FF00">call   0x80486f6 <_ZN1NC2Ei></span>
-</pre>
+</pre> -->
 </td>
 <td>
-<pre>
+<p align="center">
+  <img src = "../docs/level9.instance2.png" width = "100%">
+</p>
+
+<!-- uncommend the following lines for markdown version of the screenshot content -->
+<!-- <pre>
    0x08048632 <+62>:	mov    DWORD PTR [esp],0x6c
    0x08048639 <+69>:	<span style="color:#00FF00">call   0x8048530 <_Znwj@plt></span>
    0x0804863e <+74>:	mov    ebx,eax
    0x08048640 <+76>:	mov    DWORD PTR [esp+0x4],0x6
    0x08048648 <+84>:	mov    DWORD PTR [esp],ebx
    0x0804864b <+87>:	<span style="color:#00FF00">call   0x80486f6 <_ZN1NC2Ei></span>
-</pre>
+</pre> -->
 </td>
 </tr>
 </table>
@@ -262,7 +281,12 @@ And that we got two instances of the class.
 
 Lets continue with the main up to the next call to a member function from N.
 
-<pre>
+<p align="center">
+  <img src = "../docs/level9.main.section_2.png" width = "100%">
+</p>
+
+<!-- uncommend the following lines for markdown version of the screenshot content -->
+<!-- <pre>
 <span style="color:#696969">
 Dump of assembler code for function main:
    0x080485f4 <+0>:	push   ebp
@@ -311,7 +335,7 @@ Dump of assembler code for function main:
    0x08048698 <+164>:	leave
    0x08048699 <+165>:	ret
 End of assembler dump.</span>
-</pre>
+</pre> -->
 
 The first few instructions from <+92> to <128> are mostly some memory shuffle.
 The important points are:
@@ -326,7 +350,12 @@ The important points are:
 
 Now in the function itself.
 
-<pre>
+<p align="center">
+  <img src = "../docs/level9.setAnnotation.png" width = "100%">
+</p>
+
+<!-- uncommend the following lines for markdown version of the screenshot content -->
+<!-- <pre>
 Dump of assembler code for function _ZN1N13setAnnotationEPc:
    0x0804870e <+0>:	push   ebp
    0x0804870f <+1>:	mov    ebp,esp
@@ -344,7 +373,7 @@ Dump of assembler code for function _ZN1N13setAnnotationEPc:
    0x08048738 <+42>:	leave
    0x08048739 <+43>:	ret
 End of assembler dump.
-</pre>
+</pre> -->
 
 We see `strlen@plt` called on `argv[1]` and the result used for `memcpy@plt` as the third parameter.
 Morover, `argv[1]` is used for `memcpy@plt` as the second parmeter which means `argv[1]` is the source.
@@ -364,7 +393,12 @@ If we overwrite the data for the second instance, the `vtable` should be corrupt
 So any try to use a member function would effectively call at an address we could choose.
 And as `vtable` sits as the first element of the instance, any dereferencing of our second instance first address is a vulnerability.
 
-<pre>
+<p align="center">
+  <img src = "../docs/level9.main.section_3.png" width = "100%">
+</p>
+
+<!-- uncommend the following lines for markdown version of the screenshot content -->
+<!-- <pre>
 <span style="color:#696969">
 Dump of assembler code for function main:
    0x080485f4 <+0>:	push   ebp
@@ -413,7 +447,7 @@ Dump of assembler code for function main:
    0x08048698 <+164>:	leave
    0x08048699 <+165>:	ret
 End of assembler dump.
-</pre>
+</pre> -->
 
 At <+108> `esp+0x10` was set to contain the address of the second instance of class N.
 And right after the calal to `_ZN1N13setAnnotationEPc`, we put in eax this address.
