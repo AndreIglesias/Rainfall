@@ -99,9 +99,7 @@ But In order to understand this main, we'll split it in three parts matching the
 
 Here is the first section of the `main`.
 
-<p align="center">
-  <img src = "../docs/level9.main.section_1.png" width = "100%">
-</p>
+<img src = "../docs/level9.main.section_1.png">
 
 <!-- uncommend the following lines for markdown version of the screenshot content -->
 <!-- <pre>
@@ -169,9 +167,9 @@ It contains:
 
 <details>
 <summary>A check for at least one argument.</summary>
-<p align="center">
-  <img src = "../docs/level9.main.argc_jump.png" width = "100%">
-</p>
+
+  <img src = "../docs/level9.main.argc_jump.png">
+
 
 <!-- uncommend the following lines for markdown version of the screenshot content -->
 <!-- <pre>
@@ -193,9 +191,9 @@ The code will skip the exit with the `jg` if argc > 1
 </tr>
 <tr>
 <td>
-<p align="center">
-  <img src = "../docs/level9.instance1.png" width = "100%">
-</p>
+
+  <img src = "../docs/level9.instance1.png">
+
 
 <!-- uncommend the following lines for markdown version of the screenshot content -->
 <!-- <pre>
@@ -208,9 +206,9 @@ The code will skip the exit with the `jg` if argc > 1
 </pre> -->
 </td>
 <td>
-<p align="center">
-  <img src = "../docs/level9.instance2.png" width = "100%">
-</p>
+
+  <img src = "../docs/level9.instance2.png">
+
 
 <!-- uncommend the following lines for markdown version of the screenshot content -->
 <!-- <pre>
@@ -281,9 +279,9 @@ And that we got two instances of the class.
 
 Lets continue with the main up to the next call to a member function from N.
 
-<p align="center">
-  <img src = "../docs/level9.main.section_2.png" width = "100%">
-</p>
+
+  <img src = "../docs/level9.main.section_2.png">
+
 
 <!-- uncommend the following lines for markdown version of the screenshot content -->
 <!-- <pre>
@@ -350,9 +348,9 @@ The important points are:
 
 Now in the function itself.
 
-<p align="center">
-  <img src = "../docs/level9.setAnnotation.png" width = "100%">
-</p>
+
+  <img src = "../docs/level9.setAnnotation.png">
+
 
 <!-- uncommend the following lines for markdown version of the screenshot content -->
 <!-- <pre>
@@ -393,9 +391,9 @@ If we overwrite the data for the second instance, the `vtable` should be corrupt
 So any try to use a member function would effectively call at an address we could choose.
 And as `vtable` sits as the first element of the instance, any dereferencing of our second instance first address is a vulnerability.
 
-<p align="center">
-  <img src = "../docs/level9.main.section_3.png" width = "100%">
-</p>
+
+  <img src = "../docs/level9.main.section_3.png">
+
 
 <!-- uncommend the following lines for markdown version of the screenshot content -->
 <!-- <pre>
