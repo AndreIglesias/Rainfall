@@ -34,7 +34,7 @@ In order to develop an exploit, we want to understand the behaviour of the progr
 
 We start by looking at the `main` function.
 
-![disassembled main](../docs/level1.peda.main.png)
+![disassembled main](../../docs/level1.peda.main.png)
 
 We notice 2 interesting things:
 - the program uses `gets()` function, which is known to be prone to buffer overflow
@@ -48,7 +48,7 @@ Before trying to copy *Smashing The Stack For Fun And Profit*, we run `info func
 
 ### Run function
 
-![info functions](../docs/level1.peda.info_functions.png)
+![info functions](../../docs/level1.peda.info_functions.png)
 
 From all of the symbols listed, `main` and `run` are the only functions writen in the code. All other functions are either imported from a library or functions added by the compiler like `frame_dummy` (feel free to read more about it, this is out of the scope of this walkthrough).
 
@@ -59,7 +59,7 @@ x/1s 0x8048570
 x/1s 0x8048584
 ```
 
-![run function](../docs/level1.peda.run.png)
+![run function](../../docs/level1.peda.run.png)
 
 Let me explain.
 First, we disassemble `run` with `pdisas` (colored version of `disas` => alias to `disassemble`).
@@ -158,9 +158,9 @@ What we can do is:
 - look at where in our string the subsequence appears
 - count the number of characters before: `pattern offset`
 
-![peda pattern create](../docs/level1.peda.pattern.png)
+![peda pattern create](../../docs/level1.peda.pattern.png)
 
-![peda pattern offset](../docs/level1.peda.offset.png)
+![peda pattern offset](../../docs/level1.peda.offset.png)
 
 With the following pattern, `AAA%AAsAABAA$AAnAACAA-AA(AADAA;AA)AAEAAaAA0AAFAAbAA1AAGAAcAA2AAHAAdAA3AAIAAeAA4AAJAAfAA5AAKAAgAA6AAL` the programs tries to execute the instructions at `0x41344141` or `"A4AA"`, which we find in the string only once.
 
