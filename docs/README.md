@@ -2,11 +2,45 @@
   Rainfall
 </h1>
 
-<p align="center">
-Deep dive into reverse engineering and elf-like binary exploitation in i386 system.
-    <img src = "https://user-images.githubusercontent.com/35022933/213947145-70f02ba3-4a0f-41ee-9c75-bf24c6d18aba.png" width = "50%"> 
+Welcome to Rainfall, a collection of walkthroughs and solutions for binary exploitation challenges and deep dives into reverse engineering on i386 systems. In this project, we explore various techniques such as buffer overflows, shellcode injection, format string exploits for printf, heap and stack injection, Global Offset Table (GOT) hijacking, and more.
+
+<p align="center">  
+  <img src = "https://user-images.githubusercontent.com/35022933/213947145-70f02ba3-4a0f-41ee-9c75-bf24c6d18aba.png" width = "50%"> 
 </p>
 <img src = "level1.run_main.png" >
+
+## Overview
+
+Rainfall consists of 10 binaries that have been carefully selected and analyzed. Each binary presents unique challenges, allowing you to explore different aspects of binary exploitation and reverse engineering.
+
+## Features
+
+- **Binary Exploitation**: Learn how to exploit vulnerabilities in binary executables.
+- **Reverse Engineering**: Deep dive into understanding the inner workings of compiled programs.
+- **Multiple Techniques**: Explore a variety of techniques including buffer overflows, shellcode injection, format string exploits, and more.
+- **Practical Examples**: Real-world scenarios to apply your knowledge and skills.
+
+## Walkthroughs
+
+Each binary comes with a detailed walkthrough and solution, guiding you through the process of analyzing, reverse engineering, and exploiting the vulnerabilities present in the executable.
+
+## Getting Started
+
+To get started with Rainfall, clone this repository and navigate to the specific binary you want to analyze. Each binary directory contains the following:
+
+- **binary**: The executable binary file.
+- **flag**: The obtained flag.
+- **source.c**: Optional, contains the original C source code if available.
+- **walkthrough.md**: Detailed walkthrough and solution for the binary.
+- **resources**: The tools used to exploit the binary.
+
+## Requirements
+
+To follow along with the walkthroughs, you'll need:
+
+- Basic understanding of C programming language.
+- Familiarity with Linux environments.
+- Knowledge of assembly language (x86/i386 architecture).
 
 ## Levels summary
 
@@ -54,9 +88,10 @@ void run() {
     // Execute the "/bin/sh" shell command
     system("/bin/sh");
 }
+
 int main(int argc, const char **argv, const char **envp)
 {
-    char buffer[??]; // Buffer to hold user input
+    char buffer[76]; // Buffer to hold user input
     
     gets(buffer); // Reading input from the user
 
@@ -340,3 +375,12 @@ int main(int argc, char* argv[]) {
 }
 ```
 </details>
+
+## Disclaimer
+
+Rainfall is intended for educational purposes only. By using this project, you agree that the authors are not responsible for any misuse or illegal activities.
+
+## License
+
+This project is licensed under the GNU General Public License - see the [LICENSE](LICENSE) file for details.
+
