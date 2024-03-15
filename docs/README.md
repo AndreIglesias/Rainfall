@@ -26,7 +26,7 @@ Each binary comes with a detailed walkthrough and solution, guiding you through 
 
 ## Getting Started
 
-To get started with Rainfall, clone this repository and navigate to the specific binary you want to analyze. Each binary directory contains the following:
+To get started with Rainfall, clone this repository and navigate to the specific level you want to analyze. Each level directory contains the following:
 
 - **binary**: The executable binary file.
 - **flag**: The obtained flag.
